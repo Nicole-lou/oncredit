@@ -7,6 +7,7 @@ import '../templates/appbar.dart';
 import '../config/app_config.dart';
 import '../tools/formatters.dart';
 import '../services/finance_service.dart';
+import 'client_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -126,15 +127,12 @@ class _HomePageState extends State<HomePage> {
                       title: Text(client.name),
                       subtitle: Text(client.cpf),
                       onTap: () {
-                        debugPrint('Selecionou ${client.name}');
-                        /* Breve
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (_) => ClientPage(client: client),
                           ),
                         );
-                         */
                       },
                     );
                   },
@@ -179,14 +177,14 @@ class _HomePageState extends State<HomePage> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           suffixIcon: _search.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    _searchController.clear();
-                    setState(() {
-                      _search = '';
-                    });
-                  },
-                )
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              _searchController.clear();
+              setState(() {
+                _search = '';
+              });
+            },
+          )
               : null,
         ),
         onChanged: (value) {
