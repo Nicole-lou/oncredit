@@ -5,7 +5,6 @@ import '../models/client.dart';
 import '../models/financial_event.dart';
 import '../services/finance_service.dart';
 import '../templates/appbar.dart';
-
 import '../tools/formatters.dart';
 
 class ClientHistoryPage extends StatelessWidget {
@@ -31,7 +30,6 @@ class ClientHistoryPage extends StatelessWidget {
 
             const SizedBox(height: 22),
 
-            // --- Identificação do cliente (igual ClientPage) ---
             Text(
               client.name,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -41,7 +39,6 @@ class ClientHistoryPage extends StatelessWidget {
             const SizedBox(height: 16),
             const Divider(),
 
-            // --- Histórico ---
             Expanded(
               child: FutureBuilder<List<FinancialEvent>>(
                 future: FinanceService().getClientHistory(client.id),
@@ -72,7 +69,11 @@ class ClientHistoryPage extends StatelessWidget {
                           color: isPurchase ? Colors.red : Colors.green,
                         ),
                         title: Text(item.description),
-                        subtitle: Text(Formatters.dateFormat.format(item.date)),
+                        subtitle: Text(
+                          isPurchase
+                              ? Formatters.dateFormat.format(item.date)
+                              : '${Formatters.dateFormat.format(item.date)} · ${item.method}',
+                        ),
                         trailing: Text(
                           '${isPurchase ? '- ' : '+ '}${Formatters.currencyFormat.format(item.value)}',
                           style: TextStyle(
